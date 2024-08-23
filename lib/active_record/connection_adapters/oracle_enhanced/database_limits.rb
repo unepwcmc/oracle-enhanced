@@ -7,7 +7,8 @@ module ActiveRecord
     module OracleEnhanced
       module DatabaseLimits
         # maximum length of Oracle identifiers
-        IDENTIFIER_MAX_LENGTH = 30
+        # see https://docs.oracle.com/en/database/oracle/oracle-data-access-components/19.3/odpnt/EFCoreIdentifier.html
+        IDENTIFIER_MAX_LENGTH = 128
 
         def table_alias_length # :nodoc:
           IDENTIFIER_MAX_LENGTH

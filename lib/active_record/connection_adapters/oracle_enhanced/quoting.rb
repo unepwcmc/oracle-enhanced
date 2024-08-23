@@ -37,10 +37,16 @@ module ActiveRecord
           end
         end
 
+        # PRIOR VERSION 12.2
         # Names must be from 1 to 30 bytes long with these exceptions:
         # * Names of databases are limited to 8 bytes.
         # * Names of database links can be as long as 128 bytes.
         #
+        # AFTER VERSION 12.2
+        # Oracle 12.2 increases the maximum size of most identifiers from 30 to 128 bytes.
+        # We are able to create most of the identifiers like Table, Column, etc more then 30 Characters and upto 128 characters.
+        # see https://support.oracle.com/knowledge/Oracle%20Database%20Products/2447736_1.html
+        
         # Nonquoted identifiers cannot be Oracle Database reserved words
         #
         # Nonquoted identifiers must begin with an alphabetic character from
@@ -50,7 +56,7 @@ module ActiveRecord
         # your database character set and the underscore (_), dollar sign ($),
         # and pound sign (#).
         # Oracle strongly discourages you from using $ and # in nonquoted identifiers.
-        NONQUOTED_OBJECT_NAME = /[[:alpha:]][\w$#]{0,29}/
+        NONQUOTED_OBJECT_NAME = /[[:alpha:]][\w$#]{0,127}/
         VALID_TABLE_NAME = /\A(?:#{NONQUOTED_OBJECT_NAME}\.)?#{NONQUOTED_OBJECT_NAME}?\Z/
 
         # unescaped table name should start with letter and
