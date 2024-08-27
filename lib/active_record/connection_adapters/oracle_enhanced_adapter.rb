@@ -279,7 +279,12 @@ module ActiveRecord
 
       def return_value_after_insert?(column) # :nodoc:
         # TODO: Return true if there this column will be populated (e.g by a sequence)
-        super
+        # pretty ugly patch to make Active Storage working
+        if column.name == "id"
+          true
+        else
+          super
+        end
       end
 
       def build_statement_pool
